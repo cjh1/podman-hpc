@@ -17,7 +17,7 @@ shopt -u nullglob
 
 # extract name, version, source archive from .spec file
 NAME=$(rpmspec -q --qf "%{name}" $SPEC 2>/dev/null)
-VERSION=$(rpmspec -q --qf "%{version}" $SPEC 2>/dev/null)
+VERSION=0.9.0 #$(rpmspec -q --qf "%{version}" $SPEC 2>/dev/null)
 ARCHIVE=$(rpmspec --srpm -q --qf "%{source}" $SPEC 2>/dev/null)
 
 # write the archive
@@ -25,5 +25,5 @@ mkdir -p $SOURCES
 cd ..
 tar \
   --exclude-vcs --exclude-vcs-ignore \
-  --transform "s/${BASENAME}/${NAME}-${VERSION}/" \
+  --transform "s/${BASENAME}/${BASENAME}-${VERSION}/" \
   -cvaf $SOURCES/$ARCHIVE ${BASENAME}
