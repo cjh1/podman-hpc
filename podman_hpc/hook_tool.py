@@ -202,8 +202,10 @@ def main():
         if plug_conf[m]["env"] in cf_env:
             log(f"Loading {m}")
             do_plugin(rp, plug_conf[m], plug_conf_fn)
-    ret = os.chroot(rp)
-    log(f"chroot return: {ret}")
+
+    if Path(rp).exists():
+        ret = os.chroot(rp)
+        log(f"chroot return: {ret}")
 
     ldconfig()
 
