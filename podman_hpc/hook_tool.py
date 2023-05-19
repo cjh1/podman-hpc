@@ -10,6 +10,7 @@ import yaml
 import shutil
 import re
 from glob import glob, iglob
+from pathlib import Path
 
 _MOD_ENV = "PODMANHPC_MODULES_DIR"
 
@@ -170,7 +171,9 @@ def main():
 
     inp = json.load(sys.stdin)
     pid = inp["pid"]
-    cf = json.load(open("config.json"))
+    bundle_path = Path(inp["bundle"])
+    config_path = bundle_path / "config.json"
+    cf = json.load(config_path.open())
     cf_env = {}
     # initialize with any values set in the hook env configuration
     cf_env.update(os.environ)
